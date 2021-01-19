@@ -1,7 +1,7 @@
 ﻿@model HomeViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = Model?.Name??"Install";
 }
 
 @if (Model != null) 

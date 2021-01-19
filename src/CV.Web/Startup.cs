@@ -29,9 +29,14 @@ namespace CV.Web
             services.AddControllersWithViews();
 
             services.AddDbContext<MyDbContext>(o =>
+#if DEBUG
             o.UseInMemoryDatabase(databaseName: "mydb")
+#else
+            o.UseSqlite("Data Source=db/mydb.db")
+#endif
             .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
+            // never inject MyDbContext but it should be here :)
             services.AddScoped<DbContext, MyDbContext>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -39,8 +44,11 @@ namespace CV.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbContext db)
         {
+            // NOTE: generate all tables 
+            db.Database.EnsureCreated();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

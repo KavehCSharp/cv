@@ -1,0 +1,30 @@
+@model SignupViewModel
+
+@{
+    ViewData["Title"] = "Signup";
+}
+
+@if (Model.Block)
+{
+    <h1>Sorry,</h1>
+    <p>you can't signup to this site, maybe <a href="/login">login</a></p>
+
+}
+else
+{
+    <h1>
+        Welcome,
+    </h1>
+    <p>signup and enter your cv details</p>
+    <p>please visit my page on <a href="https://github.com/kavehcsharp/" target="_blank">github</a></p>
+    <p>good luck</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.EditorFor(x => x.Name)
+        @Html.EditorFor(x => x.Email)
+        @Html.EditorFor(x => x.Password)
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+}

@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 
 namespace CV.Web.ViewModels
 {
-    public class HomeViewModel
+    public class NavViewModel
     {
         public string Name { get; set; }
 
-        public string Body { get; set; }
+        public string Image { get; set; }
 
+        public string CV { get; set; }
+
+        public string Nav { get; set; }
     }
 }

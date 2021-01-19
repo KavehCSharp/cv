@@ -3,7 +3,7 @@
     ViewData["Title"] = "Dashboard";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h2>@ViewData["Title"]</h2>
 
 @using (Html.BeginForm())
 {
@@ -13,16 +13,49 @@
     {
         <p>need api key for TinyMce, please register/login to tiny.cloud and get api key</p>
         @Html.EditorFor(x => x.TinyMCEApi)
-        @*@Html.EditorFor(x => x.UseRawHtml)*@
+        @Html.EditorFor(x => x.UseRawHtml)
     }
     else
     {
+        @Html.EditorFor(x => x.Name)
+
+        <h6>Account:</h6>
         @Html.EditorFor(x => x.Email)
-        @Html.EditorFor(x => x.Nav)
+        @Html.EditorFor(x => x.Password)
+
+        // find anchor links by html
+        @*@Html.EditorFor(x => x.Nav)*@
         @Html.EditorFor(x => x.Body)
+        <br />
+
+        // NOTE: must be here for Invalid request return from controller :)
+        @Html.HiddenFor(x => x.TinyMCEApi)
+        @Html.HiddenFor(x => x.CV)
+        @Html.HiddenFor(x => x.Image)
     }
 
     <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+<hr />
+<h4>Files </h4>
+<p>Upload jpeg(square image) or pdf file for CV or both together</p>
+<small class="form-text text-muted">NOTE: don't select more than 2 files</small>
+
+@using (Html.BeginForm("upload", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Image/Pdf:</label>
+    <input type="file" name="files" id="files" multiple />
+    <button type="submit" class="btn btn-primary">Upload</button>
+    @if (!string.IsNullOrEmpty(Model.Image))
+    {
+        <a class="btn btn-danger" href="/delete/img">Delete Image</a>
+    }
+    @if (!string.IsNullOrEmpty(Model.CV))
+    {
+        <a class="btn btn-danger" href="/delete/pdf">Delete Pdf</a>
+    }
+    <small class="form-text text-muted">NOTE: To be sure you don't lose your unsaved CV, click Submit first :)</small>
 }
 
 @section Scripts
