@@ -41,7 +41,10 @@ namespace CV.Web
             services.AddScoped<DbContext, MyDbContext>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login/";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
