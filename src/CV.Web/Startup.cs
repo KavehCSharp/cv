@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CV.Web.Data;
@@ -46,6 +47,11 @@ namespace CV.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbContext db)
         {
+            var path = Path.Combine(env.ContentRootPath, "db");
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             // NOTE: generate all tables 
             db.Database.EnsureCreated();
 

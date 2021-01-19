@@ -214,6 +214,9 @@ namespace CV.Web.Controllers
 
             var path = Path.Combine(_webHostEnvironment.WebRootPath, "files");
 
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             if (pdf != null) 
             {
                 var pdfFile = Path.Combine(path, pdf.FileName);
