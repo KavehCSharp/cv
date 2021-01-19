@@ -1,0 +1,7 @@
+﻿@model object
+
+<div class="form-group">
+    @Html.LabelFor(x => x)
+    @Html.TextBoxFor(x => x, new { @class = "form-control editor" })
+    @Html.ValidationMessageFor(x => x)
+</div>

@@ -1,0 +1,10 @@
+﻿@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (Model != null) 
+{
+    @Html.Raw(Model.Body)
+}

@@ -1,0 +1,41 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @if (string.IsNullOrEmpty(Model.TinyMCEApi))
+    {
+        <p>need api key for TinyMce, please register/login to tiny.cloud and get api key</p>
+        @Html.EditorFor(x => x.TinyMCEApi)
+        @*@Html.EditorFor(x => x.UseRawHtml)*@
+    }
+    else
+    {
+        @Html.EditorFor(x => x.Email)
+        @Html.EditorFor(x => x.Nav)
+        @Html.EditorFor(x => x.Body)
+    }
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+@section Scripts
+{
+    @if (!string.IsNullOrEmpty(Model.TinyMCEApi))
+    {
+        <script src="https://cdn.tiny.cloud/1/@Model.TinyMCEApi/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+            tinymce.init({
+                selector: '.editor',
+                plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                toolbar_mode: 'floating',
+            });
+        </script>
+    }
+}

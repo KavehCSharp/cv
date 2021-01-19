@@ -1,0 +1,14 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.EditorFor(x => x.Email)
+    @Html.EditorFor(x => x.Password)
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
