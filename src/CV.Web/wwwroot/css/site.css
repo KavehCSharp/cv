@@ -10639,7 +10639,7 @@ p.lead {
             #sideNav .navbar-brand .img-profile {
                 width: 10rem;
                 height: 10rem;
-                border: 0.5rem solid rgba(255, 255, 255, 0.2);
+                border: 0.1rem solid rgba(131, 148, 232, 1);
                 background-size: cover;
             }
 
